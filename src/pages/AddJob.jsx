@@ -42,7 +42,7 @@ const AddJob = () => {
           <form onSubmit={handleAddJob} className="space-y-6">
             <div className="fieldContainer">
               <label htmlFor="lws-JobTitle" className="text-sm font-medium text-slate-300">Job Title</label>
-              <select defaultValue={jobTitle} onSelect={handleInput} id="lws-JobTitle" name="lwsJobTitle" required>
+              <select defaultValue={jobTitle} onChange={handleInput} id="lws-JobTitle" name="lwsJobTitle" required>
                 <option defaultValue>Select Job</option>
                 <option value="Software Developer">Software Developer</option>
                 <option value="Full Stack Developer">Full Stack Developer</option>
@@ -63,8 +63,8 @@ const AddJob = () => {
 
             <div className="fieldContainer">
               <label htmlFor="lws-JobType">Job Type</label>
-              <select defaultValue={jobType} onSelect={handleInput} id="lws-JobType" name="lwsJobType" required>
-                <option value="" hidden selected>Select Job Type</option>
+              <select defaultValue={jobType} onChange={handleInput} id="lws-JobType" name="lwsJobType" required>
+                <option value="" hidden>Select Job Type</option>
                 <option value="Full Time">Full Time</option>
                 <option value="Internship">Internship</option>
                 <option value="Remote">Remote</option>
