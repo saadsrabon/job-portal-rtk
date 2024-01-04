@@ -1,5 +1,7 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+/* eslint-disable react/prop-types */
+
+import { NavLink } from "react-router-dom"
+
 
 const Layout = ({children}) => {
   return (
@@ -38,10 +40,10 @@ const Layout = ({children}) => {
                         </ul>
                     </li>
                     <li>
-                        <a href="/jobs" className="main-menu" id="lws-addJob-menu">
+                        <NavLink to="/addjobs" className="main-menu" id="lws-addJob-menu">
                             <i className="fa-solid fa-file-circle-plus"></i>
                             <span>Add NewJob</span>
-                        </a>
+                        </NavLink>
                     </li>
                 </ul>
             </nav>
