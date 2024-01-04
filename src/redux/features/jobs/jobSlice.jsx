@@ -24,8 +24,9 @@ const jobSlice = createSlice({
             state.isLoading = true;
         });
         builder.addCase(fetchJobsThunk.fulfilled, (state, action) => {
+            console.log(action.payload)
             state.isLoading = false;
-            state.jobs = action.payload;
+            state.jobs = action?.payload;
         });
         builder.addCase(fetchJobsThunk.rejected, (state, action) => {
             state.isLoading = false;
