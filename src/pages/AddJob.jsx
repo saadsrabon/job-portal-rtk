@@ -19,7 +19,7 @@ const AddJob = () => {
           <form className="space-y-6">
             <div className="fieldContainer">
               <label htmlFor="lws-JobTitle" className="text-sm font-medium text-slate-300">Job Title</label>
-              <select id="lws-JobTitle" name="lwsJobTitle" required>
+              <select onSelect={handleInput} id="lws-JobTitle" name="lwsJobTitle" required>
                 <option defaultValue>Select Job</option>
                 <option value="Software Developer">Software Developer</option>
                 <option value="Full Stack Developer">Full Stack Developer</option>
@@ -40,11 +40,11 @@ const AddJob = () => {
 
             <div className="fieldContainer">
               <label htmlFor="lws-JobType">Job Type</label>
-              <select id="lws-JobType" name="lwsJobType" required>
+              <select onSelect={handleInput} id="lws-JobType" name="lwsJobType" required>
                 <option value="" hidden selected>Select Job Type</option>
-                <option>Full Time</option>
-                <option>Internship</option>
-                <option>Remote</option>
+                <option value="Full Time">Full Time</option>
+                <option value="Internship">Internship</option>
+                <option value="Remote">Remote</option>
               </select>
             </div>
 
@@ -52,14 +52,14 @@ const AddJob = () => {
               <label htmlFor="lws-JobSalary">Salary</label>
               <div className="flex border rounded-md shadow-sm border-slate-600">
                 <span className="input-tag">BDT</span>
-                <input type="number" name="lwsJobSalary" id="lws-JobSalary" required className="!rounded-l-none !border-0"
+                <input onChange={handleInput} type="number" name="lwsJobSalary" id="lws-JobSalary" required className="!rounded-l-none !border-0"
                   placeholder="20,00,000" />
               </div>
             </div>
 
             <div className="fieldContainer">
               <label htmlFor="lws-JobDeadline">Deadline</label>
-              <input type="date" name="lwsJobDeadline" id="lws-JobDeadline" required />
+              <input onChange={handleInput}  type="date" name="lwsJobDeadline" id="lws-JobDeadline" required />
             </div>
 
             <div className="text-right">
