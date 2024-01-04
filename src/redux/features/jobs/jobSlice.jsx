@@ -2,12 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { addJob, fetchJobs } from "./jobsApi";
 
 // thunk functions
-const fetchJobsThunk =createAsyncThunk("jobs/fetchJobs", async () => {
+export const fetchJobsThunk =createAsyncThunk("jobs/fetchJobs", async () => {
     const jobs = await fetchJobs();
     return jobs;
 });
 
-const addJobsThunk = createAsyncThunk("jobs/addJob", async (payload) => {
+export const addJobsThunk = createAsyncThunk("jobs/addJob", async (payload) => {
     const job = await addJob(payload);
     return job;
 });
@@ -20,7 +20,7 @@ const jobSlice = createSlice({
         error: null,
     },
     extraReducers:builder=>{
-        builder.addCase(fetchJobsThunk.pending, (state, action) => {
+        builder.addCase(fetchJobsThunk.pending, (state) => {
             state.isLoading = true;
         });
         builder.addCase(fetchJobsThunk.fulfilled, (state, action) => {
@@ -31,7 +31,7 @@ const jobSlice = createSlice({
             state.isLoading = false;
             state.error = action.error.message;
         });
-        builder.addCase(addJobsThunk.pending, (state, action) => {
+        builder.addCase(addJobsThunk.pending, (state) => {
             state.isLoading = true;
         });
         builder.addCase(addJobsThunk.fulfilled, (state, action) => {
