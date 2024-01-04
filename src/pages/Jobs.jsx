@@ -1,12 +1,13 @@
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
+import { fetchJobsThunk } from "../redux/features/jobs/jobSlice"
 
 
 const Jobs = () => {
     const dispatch =useDispatch()
     useEffect(() => {
-        dispatch()
-    }, [])
+        dispatch(fetchJobsThunk())
+    }, [dispatch])
 
   return (
     <div className="lg:pl-[14rem]  mt-[5.8125rem]">
