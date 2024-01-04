@@ -23,6 +23,7 @@ const AddJob = () => {
   }
  }
  const handleAddJob = (e) => {
+  e.preventDefault()
   const job = {
     jobTitle,
     jobType,
@@ -37,8 +38,8 @@ const AddJob = () => {
       <main className="max-w-3xl rounded-lg mx-auto relative z-20 p-10 xl:max-w-none bg-[#1E293B]">
         <h1 className="mb-10 text-center lws-section-title">Add New Job</h1>
 
-        <form onSubmit={handleAddJob} className="max-w-3xl mx-auto">
-          <form className="space-y-6">
+        <div  className="max-w-3xl mx-auto">
+          <form onSubmit={handleAddJob} className="space-y-6">
             <div className="fieldContainer">
               <label htmlFor="lws-JobTitle" className="text-sm font-medium text-slate-300">Job Title</label>
               <select defaultValue={jobTitle} onSelect={handleInput} id="lws-JobTitle" name="lwsJobTitle" required>
@@ -90,7 +91,7 @@ const AddJob = () => {
               </button>
             </div>
           </form>
-        </form>
+        </div>
       </main>
     </div>
     </>
