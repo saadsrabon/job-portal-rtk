@@ -1,10 +1,14 @@
 /* eslint-disable react/prop-types */
 
+import { createContext, useState } from "react"
 import { NavLink } from "react-router-dom"
 
-
+export const JobTypeContext = createContext();
 const Layout = ({children}) => {
+    const [jobType,setJobType]=useState("All")
+    
   return (
+    <JobTypeContext.Provider value={{ jobType, setJobType }}>
     <>
     <nav className="max-w-[90rem] mx-auto py-4 fixed top-0 w-full left-1/2 -translate-x-1/2 px-4 md:px-0">
         <img src="./images/logo.svg" />
@@ -20,22 +24,22 @@ const Layout = ({children}) => {
                         </a>
                         <ul className="space-y-6 lg:space-y-2 ">
                             <li>
-                                <a className="sub-menu" href="/jobs/internship" id="lws-internship-menu">
+                                <button onClick={()=>setJobType("Internship")} className="sub-menu"  id="lws-internship-menu">
                                     <i className="fa-solid fa-stop !text-[#FF5757]"></i>
                                     Internship
-                                </a>
+                                </button>
                             </li>
                             <li>
-                                <a className="sub-menu" href="/jobs/fulltime" id="lws-fulltime-menu">
+                                <button onClick={()=>setJobType("Full Time")} className="sub-menu"  id="lws-fulltime-menu">
                                     <i className="fa-solid fa-stop !text-[#FF8A00]"></i>
                                     Full Time
-                                </a>
+                                </button>
                             </li>
                             <li>
-                                <a className="sub-menu" href="/jobs/remote" id="lws-remote-menu">
+                                <button  onClick={()=>setJobType("Remote")} className="sub-menu"  id="lws-remote-menu">
                                     <i className="fa-solid fa-stop !text-[#56E5C4]"></i>
                                     Remote
-                                </a>
+                                </button>
                             </li>
                         </ul>
                     </li>
@@ -51,6 +55,7 @@ const Layout = ({children}) => {
        {children}
     </div>
     </>
+    </JobTypeContext.Provider>
   )
 }
 

@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchJobsThunk } from "../redux/features/jobs/jobSlice"
+import { JobTypeContext } from "../layout/Layout";
 
 
 const Jobs = () => {
     const { jobs, isLoading, error } = useSelector((state) => state?.job);
     const [searchText, setSearchText] = useState("");
     const [sortOption, setSortOption] = useState("Default"); // Track sorting option
-
+    const {jobType}=useContext(JobTypeContext)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchJobsThunk());
@@ -29,6 +30,15 @@ const Jobs = () => {
         filteredJobs.sort((a, b) => Number(a?.salary) - Number(b?.salary));
     } else if (sortOption === "Salary (High to Low)") {
         filteredJobs.sort((a, b) => Number(b?.salary) - Number(a?.salary));
+    }
+    if(jobType==="Full Time"){
+        filteredJobs=filteredJobs.filter(job=>job.type==="Full Time")
+    }
+    else if(jobType==="Internship"){
+        filteredJobs=filteredJobs.filter(job=>job.type==="Internship")
+    }
+    else if(jobType==="Remote"){
+        filteredJobs=filteredJobs.filter(job=>job.type==="Remote")
     }
 
     let content= null;
