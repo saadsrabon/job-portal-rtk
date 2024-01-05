@@ -1,15 +1,35 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchJobsThunk } from "../redux/features/jobs/jobSlice"
 
 
 const Jobs = () => {
-   const {jobs,isLoading,error}=useSelector((state)=>state.job)
-    let searchText ="Devops"
-    const dispatch =useDispatch()
+    const { jobs, isLoading, error } = useSelector((state) => state?.job);
+    const [searchText, setSearchText] = useState("");
+    const [sortOption, setSortOption] = useState("Default"); // Track sorting option
+
+    const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchJobsThunk())
-    }, [dispatch])
+        dispatch(fetchJobsThunk());
+    }, [dispatch]);
+
+    const handleSearch = (e) => {
+        setSearchText(e.target.value);
+    };
+
+    const handleSort = (e) => {
+        setSortOption(e.target.value);
+    };
+
+    let filteredJobs = jobs.filter((job) =>
+        job.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+
+    if (sortOption === "Salary (Low to High)") {
+        filteredJobs.sort((a, b) => Number(a?.salary) - Number(b?.salary));
+    } else if (sortOption === "Salary (High to Low)") {
+        filteredJobs.sort((a, b) => Number(b?.salary) - Number(a?.salary));
+    }
 
     let content= null;
     if (isLoading) {
@@ -20,7 +40,7 @@ const Jobs = () => {
     }
     else {
 
-        jobs.length>0 && (content = jobs.filter(job=>job?.title.toLowerCase().includes(searchText.toLowerCase())).map((job,index) => (
+        jobs.length>0 && (content = filteredJobs.map((job, index) => (
             <div key={index} className="lws-single-job">
             <div className="flex-1 min-w-0">
                 <h2 className="lws-title">{job?.title}</h2>
@@ -66,12 +86,12 @@ const Jobs = () => {
             <div className="flex gap-4">
                 <div className="search-field group flex-1">
                     <i className="fa-solid fa-magnifying-glass search-icon group-focus-within:text-blue-500"></i>
-                    <input type="text" placeholder="Search Job" className="search-input" id="lws-searchJob"/>
+                    <input onChange={handleSearch} type="text" placeholder="Search Job" className="search-input" id="lws-searchJob"/>
                 </div>
-                <select id="lws-sort" name="sort" autoComplete="sort" className="flex-1">
+                <select value={sortOption} onChange={handleSort} id="lws-sort" name="sort" autoComplete="sort" className="flex-1">
                     <option>Default</option>
-                    <option>Salary (Low to High)</option>
-                    <option>Salary (High to Low)</option>
+                    <option value="Salary (Low to High)">Salary (Low to High)</option>
+                    <option value="Salary (High to Low)">Salary (High to Low)</option>
                 </select>
             </div>
         </div>
