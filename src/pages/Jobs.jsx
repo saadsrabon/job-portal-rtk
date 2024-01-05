@@ -5,7 +5,7 @@ import { fetchJobsThunk } from "../redux/features/jobs/jobSlice"
 
 const Jobs = () => {
    const {jobs,isLoading,error}=useSelector((state)=>state.job)
-
+    let searchText ="Devops"
     const dispatch =useDispatch()
     useEffect(() => {
         dispatch(fetchJobsThunk())
@@ -13,14 +13,14 @@ const Jobs = () => {
 
     let content= null;
     if (isLoading) {
-        content = <div>Loading...</div>;
+        content =<div className="spinner-box"><div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div> ;
     }
     else if (error) {
         content = <div>{error}</div>;
     }
     else {
 
-        jobs.length>0 && (content = jobs.map((job,index) => (
+        jobs.length>0 && (content = jobs.filter(job=>job?.title.toLowerCase().includes(searchText.toLowerCase())).map((job,index) => (
             <div key={index} className="lws-single-job">
             <div className="flex-1 min-w-0">
                 <h2 className="lws-title">{job?.title}</h2>
